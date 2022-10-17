@@ -6,11 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.adrenoxxxrom.boot.dao.UserDao;
 import ru.adrenoxxxrom.boot.model.User;
 
-
 import java.util.List;
 
 @Service
-@Transactional()
+@Transactional(readOnly = true)
 public class UserServiceImp implements UserService {
     private final UserDao userDao;
 
@@ -19,11 +18,13 @@ public class UserServiceImp implements UserService {
         this.userDao = userDao;
     }
 
+    @Transactional
     @Override
     public void saveUser(User user) {
         userDao.saveUser(user);
     }
 
+    @Transactional
     @Override
     public void removeUserById(long id) {
         userDao.removeUserById(id);
@@ -34,6 +35,7 @@ public class UserServiceImp implements UserService {
         return userDao.getAllUsers();
     }
 
+    @Transactional
     @Override
     public void updateUser(User user) {
         userDao.updateUser(user);
@@ -44,6 +46,7 @@ public class UserServiceImp implements UserService {
         return userDao.getUserById(id);
     }
 
+    @Transactional
     @Override
     public void truncateTable() {
         userDao.truncateTable();
